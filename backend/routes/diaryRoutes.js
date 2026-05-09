@@ -10,20 +10,19 @@ const {
     deleteDiary
 } = require('../controllers/diaryController');
 
+const { protect } = require('../middleware/authMiddleware');
 
-// CREATE
-router.post('/', createDiary);
 
-// READ ALL
-router.get('/', getDiaries);
+// PROTECTED ROUTES
+router.post('/', protect, createDiary);
 
-// READ SINGLE
-router.get('/:id', getDiaryById);
+router.get('/', protect, getDiaries);
 
-// UPDATE
-router.put('/:id', updateDiary);
+router.get('/:id', protect, getDiaryById);
 
-// DELETE
-router.delete('/:id', deleteDiary);
+router.put('/:id', protect, updateDiary);
+
+router.delete('/:id', protect, deleteDiary);
+
 
 module.exports = router;
