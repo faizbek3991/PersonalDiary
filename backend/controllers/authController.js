@@ -47,7 +47,7 @@ const registerUser = async (req, res) => {
             password: hashedPassword
         });
 
-        res.status(201).json({
+        return res.status(201).json({
             _id: user.id,
             name: user.name,
             email: user.email,
@@ -56,7 +56,7 @@ const registerUser = async (req, res) => {
 
     } catch (error) {
 
-        res.status(500).json({
+        return res.status(500).json({
             message: error.message
         });
     }
@@ -76,7 +76,7 @@ const loginUser = async (req, res) => {
 
         if (user && (await bcrypt.compare(password, user.password))) {
 
-            res.json({
+            return res.json({
                 _id: user.id,
                 name: user.name,
                 email: user.email,
@@ -85,14 +85,14 @@ const loginUser = async (req, res) => {
 
         } else {
 
-            res.status(401).json({
+            return res.status(401).json({
                 message: 'Invalid email or password'
             });
         }
 
     } catch (error) {
 
-        res.status(500).json({
+        return res.status(500).json({
             message: error.message
         });
     }

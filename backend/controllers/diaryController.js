@@ -1,4 +1,5 @@
 const Diary = require('../models/Diary');
+const mongoose = require('mongoose');
 
 
 // UPDATE CREATE
@@ -51,12 +52,29 @@ const getDiaries = async (req, res) => {
 // READ SINGLE
 const getDiaryById = async (req, res) => {
     try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({
+                message: 'Invalid diary ID format'
+            });
+        }
+
 
         const diary = await Diary.findById(req.params.id);
 
         if (!diary) {
             return res.status(404).json({
                 message: 'Diary not found'
+            });
+        }
+
+        // CHECK OWNER
+        if (
+            diary.user.toString() !==
+            req.user._id.toString()
+        ) {
+
+            return res.status(401).json({
+                message: 'Not authorized'
             });
         }
 
@@ -74,6 +92,12 @@ const getDiaryById = async (req, res) => {
 const updateDiary = async (req, res) => {
 
     try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({
+                message: 'Invalid diary ID format'
+            });
+        }
+
 
         const diary = await Diary.findById(req.params.id);
 
@@ -114,6 +138,12 @@ const updateDiary = async (req, res) => {
 const deleteDiary = async (req, res) => {
 
     try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({
+                message: 'Invalid diary ID format'
+            });
+        }
+
 
         const diary = await Diary.findById(req.params.id);
 
