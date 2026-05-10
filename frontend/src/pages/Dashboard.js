@@ -36,7 +36,7 @@ function Dashboard() {
 
             const res = await axios.get(
 
-                `${API_BASE_URL}/api/diaries`,
+                `${API_BASE_URL}/diaries`,
 
                 {
                     headers: {
@@ -89,7 +89,7 @@ function Dashboard() {
 
                 await axios.put(
 
-                    `${API_BASE_URL}/api/diaries/${editingId}`,
+                    `${API_BASE_URL}/diaries/${editingId}`,
 
                     formData,
 
@@ -109,7 +109,7 @@ function Dashboard() {
                 // CREATE
                 await axios.post(
 
-                    'http://localhost:5000/api/diaries',
+                    `${API_BASE_URL}/diaries`,
 
                     formData,
 
@@ -145,7 +145,7 @@ function Dashboard() {
 
             await axios.delete(
 
-                `${API_BASE_URL}/api/diaries/${id}`,
+                `${API_BASE_URL}/diaries/${id}`,
 
                 {
                     headers: {
