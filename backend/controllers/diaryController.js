@@ -18,11 +18,11 @@ const createDiary = async (req, res) => {
             mood: req.body.mood
         });
 
-        res.status(201).json(diary);
+        return res.status(201).json(diary);
 
     } catch (error) {
 
-        res.status(500).json({
+        return res.status(500).json({
             message: error.message
         });
     }
@@ -39,11 +39,11 @@ const getDiaries = async (req, res) => {
 
         }).sort({ createdAt: -1 });
 
-        res.json(diaries);
+        return res.json(diaries);
 
     } catch (error) {
 
-        res.status(500).json({
+        return res.status(500).json({
             message: error.message
         });
     }
@@ -78,10 +78,10 @@ const getDiaryById = async (req, res) => {
             });
         }
 
-        res.json(diary);
+        return res.json(diary);
 
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             message: error.message
         });
     }
@@ -125,11 +125,11 @@ const updateDiary = async (req, res) => {
 
         const updatedDiary = await diary.save();
 
-        res.json(updatedDiary);
+        return res.json(updatedDiary);
 
     } catch (error) {
 
-        res.status(500).json({
+        return res.status(500).json({
             message: error.message
         });
     }
@@ -167,13 +167,13 @@ const deleteDiary = async (req, res) => {
 
         await diary.deleteOne();
 
-        res.json({
+        return res.json({
             message: 'Diary deleted'
         });
 
     } catch (error) {
 
-        res.status(500).json({
+        return res.status(500).json({
             message: error.message
         });
     }
