@@ -6,8 +6,6 @@ const connectDB = require('./config/db');
 
 dotenv.config();
 
-connectDB();
-
 const app = express();
 
 // CORS Configuration
@@ -24,6 +22,12 @@ app.use('/api/diaries', require('./routes/diaryRoutes'));
 
 const PORT = process.env.PORT;
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+const startServer = async () => {
+    await connectDB();
+
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+};
+
+startServer();
